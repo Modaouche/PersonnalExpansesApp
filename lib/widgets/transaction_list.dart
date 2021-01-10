@@ -2,75 +2,64 @@ import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
 
-class TransactionList extends StatefulWidget {
-  @override
-  _TransactionListState createState() => _TransactionListState();
-}
+class TransactionList extends StatelessWidget {
+  final List<Transaction> userTransaction;
 
-class _TransactionListState extends State<TransactionList> {
-  final List<Transaction> _userTransaction = [
-    Transaction(
-        id: '202012311555',
-        title: 'New shoes',
-        amount: 20.99,
-        date: DateTime.now()),
-    Transaction(
-        id: '202012311559',
-        title: 'Weekly groceries',
-        amount: 32.45,
-        date: DateTime.now()),
-  ];
+  TransactionList(this.userTransaction);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _userTransaction.map((tx) {
-        return Card(
-          child: Row(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 25,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.deepOrange,
-                    width: 2,
+    return Container(
+      height: 410,
+      child: ListView(
+        children: userTransaction.map((tx) {
+          return Card(
+            child: Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 25,
                   ),
-                ),
-                padding: EdgeInsets.all(5),
-                child: Text(
-                  "\$${tx.amount}",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.deepOrange,
-                  ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    tx.title,
-                    style: TextStyle(
-                      fontSize: 17,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.deepOrange,
+                      width: 2,
                     ),
                   ),
-                  Text(
-                    DateFormat().format(tx.date),
+                  padding: EdgeInsets.all(5),
+                  child: Text(
+                    "\$${tx.amount}",
                     style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.deepOrange,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        );
-      }).toList(),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      tx.title,
+                      style: TextStyle(
+                        fontSize: 17,
+                      ),
+                    ),
+                    Text(
+                      DateFormat().format(tx.date),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }
